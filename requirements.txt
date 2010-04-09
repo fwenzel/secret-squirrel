@@ -1,11 +1,10 @@
 # Essentials
 -e svn+http://code.djangoproject.com/svn/django/trunk@12335#egg=Django
+-e git://github.com/jbalogh/django-multidb-router.git#egg=django-multidb-router
 MySQL-python==1.2.3c1
-python-memcached==1.45
 
 # Authentication
 -e git://github.com/Nitron/django-cas-provider.git#egg=cas_provider
 
-# Templates
-Jinja2==2.2.1
--e git://github.com/jbalogh/jingo.git#egg=jingo
+# Caching
+python-memcached==1.45

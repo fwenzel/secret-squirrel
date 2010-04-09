@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8"/>
+
+<title>{% block title %}Mozilla SSO{% endblock %}</title>
+
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/squirrel.css" type="text/css" media="screen"/>
+<link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}img/favicon.ico"/>
+</head>
+<body {% block bodyclass %}{% endblock %}>
+
+<ul id="skip">
+    <li><a href="#q">Skip to Search</a></li>
+    <li><a href="#nav">Skip to Navigation</a></li>
+    <li><a href="#main">Skip to Content</a></li>
+</ul>
+
+<div id="header">
+  <h1><a href="{% url home %}" title="Back to home page">Mozilla Single Sign-on</a></h1>
+
+{% comment %}
+<div id="nav">
+<ul><?php wp_list_pages('title_li=&meta_key=nav&meta_value=right'); ?></ul>
+<ul><?php wp_list_pages('title_li=&meta_key=nav&meta_value=left'); ?></ul>
+</div><!-- end #nav -->
+{% endcomment %}
+
+</div>{# end #header #}
+
+{% block content %}{% endblock %}
+

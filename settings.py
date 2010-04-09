@@ -2,6 +2,7 @@
 # Django settings for the secret_squirrel project.
 
 import os
+import logging
 
 # Make filepaths relative to settings.
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -12,6 +13,8 @@ ROOT_PACKAGE = os.path.basename(ROOT)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
+LOG_LEVEL = logging.DEBUG
+SYSLOG_TAG = "http_app_sso"
 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
@@ -75,29 +78,18 @@ ADMIN_MEDIA_PREFIX = '/admin-media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'bi)(czxyf#e68_bg4lvx!7o*v&ggnz*@()w$z-0injzc#0&)l_'
 
+# Templates
+
+TEMPLATE_DIRS = (
+    path('templates'),
+)
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
-
-def JINJA_CONFIG():
-    import jinja2
-    from django.conf import settings
-    from caching.base import cache
-    config = {'extensions': ['tower.template.i18n', 'caching.ext.cache',],
-              'finalize': lambda x: x if x is not None else ''}
-    if 'memcached' in cache.scheme and not settings.DEBUG:
-        # We're passing the _cache object directly to jinja because
-        # Django can't store binary directly; it enforces unicode on it.
-        # Details: http://jinja.pocoo.org/2/documentation/api#bytecode-cache
-        # and in the errors you get when you try it the other way.
-        bc = jinja2.MemcachedBytecodeCache(cache._cache,
-                                           "%sj2:" % settings.CACHE_PREFIX)
-        config['cache_size'] = -1 # Never clear the cache
-        config['bytecode_cache'] = bc
-    return config
 
 
 MIDDLEWARE_CLASSES = (
@@ -110,14 +102,19 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
 
-TEMPLATE_DIRS = (
-    path('templates'),
-)
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+
+    'cas_provider',
+
+    'sso',
 )
+
+# Auth
+
+LOGIN_URL = '/cas/login/'
+LOGOUT_URL = '/cas/logout/'

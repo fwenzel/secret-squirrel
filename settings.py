@@ -21,14 +21,25 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'squirrel',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
+        'OPTIONS': {'init_command': 'SET storage_engine=InnoDB'},
     }
 }
+
+DATABASE_ROUTERS = ('multidb.MasterSlaveRouter',)
+
+# Put the aliases for your slave databases in this list
+SLAVE_DATABASES = []
+
+# Cache Settings
+#CACHE_BACKEND = 'caching.backends.memcached://localhost:11211'
+#CACHE_PREFIX = 'sumo:'
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -70,6 +81,24 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
 )
+
+def JINJA_CONFIG():
+    import jinja2
+    from django.conf import settings
+    from caching.base import cache
+    config = {'extensions': ['tower.template.i18n', 'caching.ext.cache',],
+              'finalize': lambda x: x if x is not None else ''}
+    if 'memcached' in cache.scheme and not settings.DEBUG:
+        # We're passing the _cache object directly to jinja because
+        # Django can't store binary directly; it enforces unicode on it.
+        # Details: http://jinja.pocoo.org/2/documentation/api#bytecode-cache
+        # and in the errors you get when you try it the other way.
+        bc = jinja2.MemcachedBytecodeCache(cache._cache,
+                                           "%sj2:" % settings.CACHE_PREFIX)
+        config['cache_size'] = -1 # Never clear the cache
+        config['bytecode_cache'] = bc
+    return config
+
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',

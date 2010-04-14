@@ -2,5 +2,13 @@
 
 {% block content %}
 <h1>Welcome to the Mozilla Single-Sign-on Server</h1>
-<p>Please <a href="{% url cas_login %}">log in</a>.
+
+{% if not user.is_authenticated %}
+  <p>Please <a href="{% url cas_login %}">log in</a>.
+{% else %}
+  <p>
+    Welcome back, {{ user.username }}. You are logged in.
+    <a href="{% url cas_logout %}">Click here to log out.</a>
+  </p>
+{% endif %}
 {% endblock %}

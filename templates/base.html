@@ -6,8 +6,9 @@
 
 <title>{% block title %}Mozilla SSO{% endblock %}</title>
 
-<link rel="stylesheet" href="{{ MEDIA_URL }}css/squirrel.css" type="text/css" media="screen"/>
 <link rel="shortcut icon" type="image/ico" href="{{ MEDIA_URL }}img/favicon.ico"/>
+<link rel="stylesheet" href="{{ MEDIA_URL }}css/squirrel.css" type="text/css" media="screen"/>
+{% block css %}{% endblock %}
 </head>
 <body {% block bodyclass %}{% endblock %}>
 
@@ -19,6 +20,7 @@
 
 <div id="header">
   <h1><a href="{% url home %}" title="Back to home page">Mozilla Single Sign-on</a></h1>
+  <h2>Mozilla Single Sign-on</h2>
 
 {% comment %}
 <div id="nav">
@@ -29,5 +31,27 @@
 
 </div>{# end #header #}
 
-{% block content %}{% endblock %}
+<div id="content" class="widecolumn" role="main">
+  {% block content %}{% endblock %}
+</div>
 
+<div id="footer-wrap">
+  <div id="footer" class="cols">
+    <div class="three-col">
+      <p id="copyright">
+        Portions of this content are &copy;1998&ndash;{% now "Y" %} by
+        individual mozilla.org contributors. Content available under a
+        Creative Commons <a href="http://mozilla.org/foundation/licensing/website-content.html">license</a>.
+      </p>
+      <p id="copyright-links">
+        <a href="http://mozilla.org/contact/" class="first">Contact Us</a> &middot;
+        <a href="http://mozilla.org/about/policies/privacy-policy.html">Privacy Policy</a> &middot;
+        <a href="http://www.mozilla.com/en-US/legal/fraud-report/index.html">Report Trademark Abuse</a>
+      </p>
+    </div>
+  </div>{# end #footer #}
+</div>{# end #footer-wrap #}
+
+{% block js %}{% endblock %}
+</body>
+</html>

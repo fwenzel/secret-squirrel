@@ -118,3 +118,4 @@ INSTALLED_APPS = (
 
 LOGIN_URL = '/cas/login/'
 LOGOUT_URL = '/cas/logout/'
+LOGIN_REDIRECT_URL = '/'

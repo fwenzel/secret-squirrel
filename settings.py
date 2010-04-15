@@ -103,6 +103,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = '%s.urls' % ROOT_PACKAGE
 
 INSTALLED_APPS = (
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -110,12 +111,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
 
     'cas_provider',
+    'registration',
 
     'sso',
 )
 
-# Auth
+# Emails
+DEFAULT_FROM_EMAIL = 'nobody@mozilla.org'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+# Auth
 LOGIN_URL = '/cas/login/'
 LOGOUT_URL = '/cas/logout/'
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_ACTIVATION_DAYS = 7

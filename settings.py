@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'registration',
 
     'sso',
+    'users',
 )
 
 # Emails

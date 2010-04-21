@@ -28,12 +28,15 @@
       <li><a href="{% url cas_login %}">Log in</a></li>
       <li><a href="{% url registration_register %}">Register a new account</a></li>
     {% else %}
-      {% if user.is_staff %}
-        <li><a href="{% url admin:index %}">Admin</a></li>
-      {% endif %}
+      <li><a href="{% url users.profile %}">My User Profile</a></li>
       <li><a href="{% url cas_logout %}">Log out</a></li>
     {% endif %}
   </ul>
+  {% if user.is_staff %}
+  <ul>
+    <li><a href="{% url admin:index %}">Admin</a></li>
+  </ul>
+  {% endif %}
 </div><!-- end #nav -->
 
 </div>{# end #header #}

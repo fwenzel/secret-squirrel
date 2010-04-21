@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     (r'^users/', include('cas_provider.urls')),
     (r'^users/', include('registration.urls')),
 
+    (r'^profile/', include('users.urls')),
+
     (r'^admin/', include(admin.site.urls)),
 )
 

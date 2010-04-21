@@ -49,9 +49,7 @@ img { border: 0; }
 -------------------------------------------*/
 
 
-body { /*margin:0 166px; min-width:800px;*/ }
-body { /*width:90%; margin-left:10%;*/ }
-body { max-width:1075px; min-width:80%; margin-left:10%; overflow-x:hidden; }
+body { max-width:1075px; min-width:80%; margin-left:171px; overflow-x:hidden; }
 
 #header { border-bottom:23px solid #a5151e; min-height:176px; margin-bottom:15px; margin-top: 30px; margin-right: -14%; position:relative; background: #2a2a2a; }
 	#header > h1 { background:transparent url(../img/bg_body_1.png) no-repeat left top; position:absolute; left:-110px; margin:0; top:-39px; width:466px; height:288px; /*text-indent:-9999px;*/ z-index: 1; }

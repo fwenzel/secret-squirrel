@@ -8,12 +8,10 @@ admin.autodiscover()
 urlpatterns = patterns('',
     ('', include('sso.urls')),
 
-    (r'^accounts/', include('registration.urls')),
-    (r'^cas/', include('cas_provider.urls')),
-
-    # Uncomment the admin/doc line below and add 'django.contrib.admindocs'
-    # to INSTALLED_APPS to enable admin documentation:
-    # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # order is important here: Both apps provide login/logout so only the
+    # first will match.
+    (r'^users/', include('cas_provider.urls')),
+    (r'^users/', include('registration.urls')),
 
     (r'^admin/', include(admin.site.urls)),
 )

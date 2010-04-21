@@ -22,12 +22,16 @@
   <h1><a href="{% url home %}" title="Back to home page">Mozilla Single Sign-on</a></h1>
   <h2>Mozilla Single Sign-on</h2>
 
-{% comment %}
 <div id="nav">
-<ul><?php wp_list_pages('title_li=&meta_key=nav&meta_value=right'); ?></ul>
-<ul><?php wp_list_pages('title_li=&meta_key=nav&meta_value=left'); ?></ul>
+  <ul>
+    {% if not user.is_authenticated %}
+    <li><a href="{% url cas_login %}">Log in</a></li>
+    <li><a href="{% url registration_register %}">Register a new account</a></li>
+    {% else %}
+    <li><a href="{% url cas_logout %}">Log out</a></li>
+    {% endif %}
+  </ul>
 </div><!-- end #nav -->
-{% endcomment %}
 
 </div>{# end #header #}
 

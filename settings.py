@@ -121,8 +121,8 @@ DEFAULT_FROM_EMAIL = 'nobody@mozilla.org'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Auth
-LOGIN_URL = '/cas/login/'
-LOGOUT_URL = '/cas/logout/'
+LOGIN_URL = '/users/login/'
+LOGOUT_URL = '/users/logout/'
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_ACTIVATION_DAYS = 7

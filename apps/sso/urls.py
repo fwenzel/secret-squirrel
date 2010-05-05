@@ -6,7 +6,4 @@ urlpatterns = patterns('',
     # The homepage.
     url('^$', direct_to_template, {'template': 'sso/home.html'},
         name='home'),
-
-    # Login through service whitelist
-    url('^users/login/?$', 'sso.views.whitelist_login'),
 )

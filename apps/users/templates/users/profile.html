@@ -3,7 +3,7 @@
 {% block content %}
 <h1>User Profile</h1>
 
-<h2>User Info</h2>
+<h2>{% block title %}User Info{% endblock %}</h2>
 <table>
   <tr>
     <th>Name</th>
@@ -21,9 +21,8 @@
 
 <h2>Associated Sites</h2>
 <p>
-These are the sites you have authorized to log you in via single-sign-on.
-To authorize additional sites, go to the sites and click on their SSO log-in
-link.
+These are the sites you have logged in to via single-sign-on. To authorize
+additional sites, go to the sites and click on their SSO log-in link.
 </p>
 {% if user.sites.all %}
   <ul>

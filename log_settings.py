@@ -4,9 +4,9 @@ import logging.handlers
 from django.conf import settings
 
 
-# Loggers created under the "z" namespace, e.g. "z.caching", will inherit the
-# configuration from the base z logger.
-log = logging.getLogger('z')
+# Loggers created under the "sso" namespace, e.g. "sso.caching", will inherit the
+# configuration from the base logger.
+log = logging.getLogger('sso')
 
 level = settings.LOG_LEVEL
 
